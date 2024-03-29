@@ -168,6 +168,34 @@ namespace FontEditor.Forms
             UnsavedChanges = true;
         }
 
+        /// <summary>
+        /// Prompts the user to save their unsaved changes, if there are any. Returns a boolean value indicating whether the user took an action or chose to cancel the dialog.
+        /// </summary>
+        /// <param name="message">The message to show the user.</param>
+        /// <returns><see langword="true"/> if there were no unsaved changes or the user chose to save/not save them; otherwise <see langword="false"/> (such as if the user pressed "Cancel", or the operation resulted in an error).</returns>
+        private bool PromptUnsavedChanges(string message)
+        {
+            if(!UnsavedChanges)
+                return true;
+
+            var result = MessageBox.Show(message, Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            switch(result)
+            {
+                case DialogResult.Yes:
+                    if(SaveChanges() != DialogResult.OK)
+                    {
+                        return false;
+                    }
+                    break;
+
+                case DialogResult.Cancel:
+                    return false;
+            }
+
+            return true;
+        }
+
         private DialogResult SaveChanges()
         {
             var result = DialogResult.OK;
@@ -263,20 +291,10 @@ namespace FontEditor.Forms
         {
             if(UnsavedChanges && e.CloseReason != CloseReason.ApplicationExitCall && e.CloseReason != CloseReason.WindowsShutDown)
             {
-                var result = MessageBox.Show("Would you like to save your changes before exiting?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-                switch(result)
+                if(!PromptUnsavedChanges("Would you like to save your changes before exiting?"))
                 {
-                    case DialogResult.Yes:
-                        if(SaveChanges() != DialogResult.OK)
-                        {
-                            goto case DialogResult.Cancel;
-                        }
-                        break;
-
-                    case DialogResult.Cancel:
-                        e.Cancel = true;
-                        return; // Skip the rest of the event handler
+                    e.Cancel = true;
+                    return;
                 }
             }
 
@@ -533,29 +551,17 @@ namespace FontEditor.Forms
 
         private void NewMenuItem_Click(object sender, EventArgs e)
         {
-            if(UnsavedChanges)
-            {
-                var result = MessageBox.Show("Would you like to save your changes before creating a new font?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-                switch(result)
-                {
-                    case DialogResult.Yes:
-                        if(SaveChanges() != DialogResult.OK)
-                        {
-                            goto case DialogResult.Cancel;
-                        }
-                        break;
-
-                    case DialogResult.Cancel:
-                        return; // Skip the rest of the event handler
-                }
-            }
+            if(!PromptUnsavedChanges("Would you like to save your changes before creating a new font?"))
+                return;
 
             NewFont();
         }
 
         private void OpenMenuItem_Click(object sender, EventArgs e)
         {
+            if(!PromptUnsavedChanges("Would you like to save your changes before opening another font?"))
+                return;
+
             if(OpenFontFileDialog.ShowDialog() != DialogResult.OK)
                 return;
 
