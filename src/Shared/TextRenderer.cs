@@ -195,30 +195,46 @@ namespace DoomWriter
                 string line;
                 while((line = reader.ReadLine()) != null)
                 {
-                    int x = 0;
                     int lineHeight = line.Length <= 0 ? currentFont.EmptyLineHeight : 0;
                     int tallestDescender = 0;
                     int backslashCount = 0;
                     int glyphIndex = 0;
 
-                    var fontLineHeight = currentFont.LineHeight;
-                    var letterSpacing = currentFont.LetterSpacing;
-                    var spaceWidth = currentFont.SpaceWidth + currentFont.LetterSpacing;
-                    var tabWidth = currentFont.TabWidth;
+                    int fontLineHeight = 0;
+                    int letterSpacing = 0;
+                    int spaceWidth = 0;
+                    int tabWidth = 0;
+
+                    int i = 0;
+                    int x = 0;
+
+                    UpdateFontData();
+
+                    void UpdateFontData()
+                    {
+                        letterSpacing = currentFont.LetterSpacing;
+                        spaceWidth = currentFont.SpaceWidth;
+                        tabWidth = currentFont.TabWidth;
+
+                        if(glyphIndex == 0)
+                        {
+                            fontLineHeight = currentFont.LineHeight;
+
+                            // Ensure spaces are always the same size
+                            if(i < line.Length && (line[i] == ' ' || line[i] == '\t'))
+                            {
+                                x += letterSpacing;
+                            }
+                        }
+                    }
 
                     var glyphs = new List<RenderedGlyph>();
                     var renderModifiers = new List<TextRenderModifier>();
 
-                    // Ensure spaces are always the same size
-                    if(line.Length > 0 && (line[0] == ' ' || line[0] == '\t'))
-                    {
-                        x += letterSpacing;
-                    }
-
                     char c = (char)0;
                     char pc = (char)0;
 
-                    for(int i = 0; i < line.Length; i++)
+                    for(i = 0; i < line.Length; i++)
                     {
                         c = line[i];
 
@@ -233,10 +249,12 @@ namespace DoomWriter
                         switch(c)
                         {
                             case ' ':
+                                pc = c;
                                 x += spaceWidth;
                                 continue;
 
                             case '\t':
+                                pc = c;
                                 x += tabWidth * spaceWidth;
                                 continue;
 
@@ -251,13 +269,10 @@ namespace DoomWriter
                                     if(renderModifier is FontModifier fontModifier)
                                     {
                                         currentFont = fontModifier.Font ?? font;
-                                        
-                                        letterSpacing = currentFont.LetterSpacing;
-                                        spaceWidth = currentFont.SpaceWidth + currentFont.LetterSpacing;
-                                        tabWidth = currentFont.TabWidth;
 
-                                        if(glyphIndex == 0)
-                                            fontLineHeight = currentFont.LineHeight;
+                                        i++;
+                                        UpdateFontData();
+                                        i--;
                                     }
 
                                     renderModifiers.Add(renderModifier);
@@ -271,6 +286,11 @@ namespace DoomWriter
 
                         if(!currentFont.Glyphs.TryGetValue(c, out var glyph))
                         {
+                            // Ensure spaces are always the same size
+                            if(pc == ' ' || pc == '\t')
+                                x += letterSpacing;
+
+                            pc = ' ';
                             x += spaceWidth;
                             continue;
                         }

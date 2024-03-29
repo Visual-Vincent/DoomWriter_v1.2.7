@@ -88,6 +88,11 @@ namespace DoomWriter
                 font.SpaceWidth = spaceWidth;
                 font.LetterSpacing = (short)-letterSpacing; // In Doom Writer v2.0.0, letter spacing is inverted
 
+                // In Doom Writer v2.0.0, the rendered space width was affected by the letter spacing
+                // In v3.0.0 and onward this is no longer the case, thus subtract it from the space width
+                if(font.SpaceWidth >= letterSpacing)
+                    font.SpaceWidth = (ushort)(font.SpaceWidth - letterSpacing);
+
                 char[] descenderGlyphs = settings[2].Split(':').Select(s => {
                     ThrowHelper.Assert(s.Length == 1, new FormatException("Data is not a valid legacy Doom Writer chart"));
                     return s[0];
