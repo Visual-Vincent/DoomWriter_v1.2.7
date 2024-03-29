@@ -249,7 +249,16 @@ namespace DoomWriter
                                 if(renderModifier != null)
                                 {
                                     if(renderModifier is FontModifier fontModifier)
+                                    {
                                         currentFont = fontModifier.Font ?? font;
+                                        
+                                        letterSpacing = currentFont.LetterSpacing;
+                                        spaceWidth = currentFont.SpaceWidth + currentFont.LetterSpacing;
+                                        tabWidth = currentFont.TabWidth;
+
+                                        if(glyphIndex == 0)
+                                            fontLineHeight = currentFont.LineHeight;
+                                    }
 
                                     renderModifiers.Add(renderModifier);
                                     backslashCount = 0;
@@ -286,12 +295,14 @@ namespace DoomWriter
                         pc = c;
                     }
 
-                    if(x - letterSpacing > width)
-                        width = x - letterSpacing;
+                    int lineWidth = (x - letterSpacing).Clamp(0, int.MaxValue);
+
+                    if(lineWidth > width)
+                        width = lineWidth;
 
                     height += lineHeight + fontLineHeight;
 
-                    lines.Add(new TextMeasuredLine(glyphs, x - letterSpacing, lineHeight, fontLineHeight, tallestDescender, renderModifiers));
+                    lines.Add(new TextMeasuredLine(glyphs, lineWidth, lineHeight, fontLineHeight, tallestDescender, renderModifiers));
                 }
 
                 height -= lines.Last().LineHeight;
