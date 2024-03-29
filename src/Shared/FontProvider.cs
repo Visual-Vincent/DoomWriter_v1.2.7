@@ -46,7 +46,6 @@ namespace DoomWriter
         }
     }
 
-
     /// <summary>
     /// The default in-memory font provider.
     /// </summary>

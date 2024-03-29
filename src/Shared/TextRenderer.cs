@@ -87,16 +87,20 @@ namespace DoomWriter
         public Image Render(string text, Font<Image, Glyph> font)
         {
             var measurement = Measure(text, font);
-            var surface = new ImageSurface<Rgba32>(measurement.Width.Clamp(1, int.MaxValue), measurement.Height.Clamp(1, int.MaxValue));
+            int surfaceWidth = measurement.Width.Clamp(1, int.MaxValue);
+            int surfaceHeight = measurement.Height.Clamp(1, int.MaxValue);
+            var surface = new ImageSurface<Rgba32>(surfaceWidth, surfaceHeight);
 
             ColorTranslation currentTranslation = null;
             Font<Image, Glyph> currentFont = font;
+            TextAlignment currentAlignment = TextAlignment.Left;
 
             int y = 0;
 
             foreach(var line in measurement.Lines)
             {
-                int glyphIndex = -1;
+                int glyphIndex = 0;
+                int offsetX = 0;
 
                 var modifier = line.RenderModifiers.GetEnumerator();
                 modifier.MoveNext();
@@ -114,6 +118,10 @@ namespace DoomWriter
                             case FontModifier renderModifier:
                                 currentFont = renderModifier.Font ?? font;
                                 break;
+
+                            case TextAlignmentModifier renderModifier:
+                                currentAlignment = renderModifier.Alignment;
+                                break;
                         }
 
                         // Cache translations for the built-in font type
@@ -125,13 +133,28 @@ namespace DoomWriter
                         modifier.MoveNext();
                     }
                 }
+                
+                // Process any modifiers at the beginning of the line
+                ProcessModifiers();
+                glyphIndex = -1;
+
+                switch(currentAlignment)
+                {
+                    case TextAlignment.Center:
+                        offsetX = (int)Math.Floor(surfaceWidth / 2.0 - line.Width / 2.0);
+                        break;
+
+                    case TextAlignment.Right:
+                        offsetX = surfaceWidth - line.Width;
+                        break;
+                }
 
                 foreach(var g in line.Glyphs)
                 {
                     glyphIndex++;
-
                     ProcessModifiers();
-                    currentFont.DrawGlyph((Glyph)g.Glyph, surface, g.X, y + (line.Height - line.TallestDescender - g.Glyph.Height + g.Glyph.Descender), currentTranslation);
+
+                    currentFont.DrawGlyph((Glyph)g.Glyph, surface, offsetX + g.X, y + (line.Height - line.TallestDescender - g.Glyph.Height + g.Glyph.Descender), currentTranslation);
                 }
 
                 // Process any modifiers at the end of the line
@@ -268,7 +291,7 @@ namespace DoomWriter
 
                     height += lineHeight + fontLineHeight;
 
-                    lines.Add(new TextMeasuredLine(glyphs, x, lineHeight, fontLineHeight, tallestDescender, renderModifiers));
+                    lines.Add(new TextMeasuredLine(glyphs, x - letterSpacing, lineHeight, fontLineHeight, tallestDescender, renderModifiers));
                 }
 
                 height -= lines.Last().LineHeight;
@@ -317,7 +340,7 @@ namespace DoomWriter
                     string colorName = ParseBracketedName(text, start);
 
                     if(string.IsNullOrEmpty(colorName))
-                        return null;
+                        break;
 
                     if(!Translations.TryGetValue(colorName, out var namedTranslation))
                         break;
@@ -328,7 +351,7 @@ namespace DoomWriter
 
                 case 'f':
                     if(FontProvider == null)
-                        return null;
+                        break;
 
                     if(text[start] == '-')
                     {
@@ -339,7 +362,7 @@ namespace DoomWriter
                     string fontName = ParseBracketedName(text, start);
 
                     if(string.IsNullOrEmpty(fontName))
-                        return null;
+                        break;
 
                     var font = FontProvider.FromName(fontName);
 
@@ -349,6 +372,22 @@ namespace DoomWriter
                     index = start + fontName.Length + 1;
 
                     return new FontModifier<Font<Image, Glyph>>(glyphIndex, font);
+
+                case 'a':
+                    if(glyphIndex != 0)
+                        break;
+
+                    string alignment = ParseBracketedName(text, start);
+
+                    if(string.IsNullOrEmpty(alignment))
+                        break;
+
+                    if(!Enum.TryParse<TextAlignment>(alignment, true, out var textAlignment))
+                        break;
+
+                    index = start + alignment.Length + 1;
+
+                    return new TextAlignmentModifier(textAlignment);
             }
 
             return null;

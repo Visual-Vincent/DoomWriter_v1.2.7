@@ -18,6 +18,7 @@ namespace DoomWriter.GUI
     public partial class MainForm : Form
     {
         private const string GreetingMessage = 
+            @"\a[center]" +
             @"\cJWelcome to \cLD\cIo\cKo\cFm \cDW\cQr\cHi\cTt\cLe\cRr\cJ!" + "\n\n" +
             @"\cJStart \cDtyping\cJ in the \cFbox\cJ below to get started.";
 
