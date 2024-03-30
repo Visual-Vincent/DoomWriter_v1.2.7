@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -27,6 +27,9 @@ namespace DoomWriter.GUI
         }
 
         private static readonly Dictionary<string, ThirdPartyItem> thirdPartyLicenses = new Dictionary<string, ThirdPartyItem>() {
+#if !FONTEDITOR
+            { "Background", new ThirdPartyItem("https://freedoom.github.io/", "Background.txt") },
+#endif
             { "ImageSharp",           new ThirdPartyItem("https://github.com/SixLabors/ImageSharp", "ImageSharp.txt") },
             { "ImageSharp (notices)", new ThirdPartyItem("https://github.com/SixLabors/ImageSharp", "ImageSharp-THIRD-PARTY-NOTICES.txt") },
 #if FONTEDITOR
