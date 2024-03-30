@@ -32,6 +32,9 @@
     <EmbeddedResource Include="Licenses\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\..\CREDITS" Link="CREDITS.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="FontEditor.ico" />
   </ItemGroup>
   

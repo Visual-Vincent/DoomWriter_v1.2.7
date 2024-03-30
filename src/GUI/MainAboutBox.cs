@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -48,6 +48,7 @@ namespace DoomWriter.GUI
             this.VersionLabel.Text = $"Version {Application.ProductVersion}";
             this.CopyrightLabel.Text = Assembly.GetExecutingAssembly().GetCustomAttributes<AssemblyCopyrightAttribute>().FirstOrDefault()?.Copyright ?? "";
             this.CompanyNameLabel.Text = Application.CompanyName;
+            this.CreditsTextBox.Text = GetResourceString("CREDITS.txt");
 
             foreach(var kvp in thirdPartyLicenses)
             {
@@ -57,6 +58,15 @@ namespace DoomWriter.GUI
             ThirdPartyListBox.SelectedIndex = 0;
 
 #pragma warning restore IDE0003
+        }
+
+        private string GetResourceString(string name)
+        {
+            using(var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Program).Namespace}.{name}"))
+            using(var streamReader = new StreamReader(resourceStream))
+            {
+                return streamReader.ReadToEnd();
+            }
         }
 
         private void ThirdPartyListBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -72,12 +82,7 @@ namespace DoomWriter.GUI
             if(!thirdPartyLicenses.TryGetValue(ThirdPartyListBox.SelectedItem?.ToString(), out var item))
                 return;
 
-            using(var resourceStream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"{typeof(Program).Namespace}.Licenses.{item.LicenseName}"))
-            using(var streamReader = new StreamReader(resourceStream))
-            {
-                ThirdPartyTextBox.Text = streamReader.ReadToEnd();
-            }
-
+            ThirdPartyTextBox.Text = GetResourceString($"Licenses.{item.LicenseName}");
             ThirdPartyLinkLabel.Text = item.Link;
         }
 

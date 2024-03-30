@@ -601,24 +601,4 @@
         AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="CreditsTextBox.Text" xml:space="preserve">
-    <value>Doom Writer was created by:
-    Visual Vincent
-
-Special thanks to Blzut3 and Gez from the ZDoom forums for explaining how the text color translation works in the game!
-
-Uppercase letters X and Z (in primary font):
-    Amuscaria
-
-Primary font ("bigfont"):
-    id Software
-
-Small font ("smallfont"):
-    id Software
-
---- NOTE: -----------------------------------------------------------------
-DOOM is a registered trademark of id Software, Inc.
-
-Doom Writer and My DOOM site are not affiliated, nor claiming to be affiliated, with id Software, Inc., the DOOM trademark, or the official DOOM game.</value>
-  </data>
 </root>

@@ -78,7 +78,7 @@ namespace DoomWriter.GUI
             this.DoomWriterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.DoomWriterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.DoomWriterTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.DoomWriterTableLayoutPanel.Size = new System.Drawing.Size(482, 259);
+            this.DoomWriterTableLayoutPanel.Size = new System.Drawing.Size(570, 315);
             this.DoomWriterTableLayoutPanel.TabIndex = 0;
             // 
             // LogoPictureBox
@@ -89,7 +89,7 @@ namespace DoomWriter.GUI
             this.LogoPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.LogoPictureBox.Name = "LogoPictureBox";
             this.DoomWriterTableLayoutPanel.SetRowSpan(this.LogoPictureBox, 5);
-            this.LogoPictureBox.Size = new System.Drawing.Size(138, 259);
+            this.LogoPictureBox.Size = new System.Drawing.Size(138, 315);
             this.LogoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.LogoPictureBox.TabIndex = 12;
             this.LogoPictureBox.TabStop = false;
@@ -101,7 +101,7 @@ namespace DoomWriter.GUI
             this.ProductNameLabel.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.ProductNameLabel.MaximumSize = new System.Drawing.Size(0, 17);
             this.ProductNameLabel.Name = "ProductNameLabel";
-            this.ProductNameLabel.Size = new System.Drawing.Size(335, 17);
+            this.ProductNameLabel.Size = new System.Drawing.Size(423, 17);
             this.ProductNameLabel.TabIndex = 19;
             this.ProductNameLabel.Text = "Product Name";
             this.ProductNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -113,7 +113,7 @@ namespace DoomWriter.GUI
             this.VersionLabel.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.VersionLabel.MaximumSize = new System.Drawing.Size(0, 17);
             this.VersionLabel.Name = "VersionLabel";
-            this.VersionLabel.Size = new System.Drawing.Size(335, 17);
+            this.VersionLabel.Size = new System.Drawing.Size(423, 17);
             this.VersionLabel.TabIndex = 0;
             this.VersionLabel.Text = "Version";
             this.VersionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -125,7 +125,7 @@ namespace DoomWriter.GUI
             this.CopyrightLabel.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.CopyrightLabel.MaximumSize = new System.Drawing.Size(0, 17);
             this.CopyrightLabel.Name = "CopyrightLabel";
-            this.CopyrightLabel.Size = new System.Drawing.Size(335, 17);
+            this.CopyrightLabel.Size = new System.Drawing.Size(423, 17);
             this.CopyrightLabel.TabIndex = 21;
             this.CopyrightLabel.Text = "Copyright";
             this.CopyrightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -137,7 +137,7 @@ namespace DoomWriter.GUI
             this.CompanyNameLabel.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.CompanyNameLabel.MaximumSize = new System.Drawing.Size(0, 17);
             this.CompanyNameLabel.Name = "CompanyNameLabel";
-            this.CompanyNameLabel.Size = new System.Drawing.Size(335, 17);
+            this.CompanyNameLabel.Size = new System.Drawing.Size(423, 17);
             this.CompanyNameLabel.TabIndex = 22;
             this.CompanyNameLabel.Text = "Company Name";
             this.CompanyNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -146,22 +146,23 @@ namespace DoomWriter.GUI
             // 
             this.CreditsTextBox.BackColor = System.Drawing.SystemColors.Window;
             this.CreditsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CreditsTextBox.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CreditsTextBox.Location = new System.Drawing.Point(144, 95);
             this.CreditsTextBox.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
             this.CreditsTextBox.Multiline = true;
             this.CreditsTextBox.Name = "CreditsTextBox";
             this.CreditsTextBox.ReadOnly = true;
             this.CreditsTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.CreditsTextBox.Size = new System.Drawing.Size(335, 161);
+            this.CreditsTextBox.Size = new System.Drawing.Size(423, 217);
             this.CreditsTextBox.TabIndex = 23;
             this.CreditsTextBox.TabStop = false;
-            this.CreditsTextBox.Text = resources.GetString("CreditsTextBox.Text");
+            this.CreditsTextBox.Text = "Credits";
             // 
             // OKButton
             // 
             this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.OKButton.Location = new System.Drawing.Point(415, 297);
+            this.OKButton.Location = new System.Drawing.Point(503, 353);
             this.OKButton.Margin = new System.Windows.Forms.Padding(6);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
@@ -177,7 +178,7 @@ namespace DoomWriter.GUI
             this.MainTabControl.Margin = new System.Windows.Forms.Padding(0);
             this.MainTabControl.Name = "MainTabControl";
             this.MainTabControl.SelectedIndex = 0;
-            this.MainTabControl.Size = new System.Drawing.Size(496, 291);
+            this.MainTabControl.Size = new System.Drawing.Size(584, 347);
             this.MainTabControl.TabIndex = 1;
             // 
             // DoomWriterTabPage
@@ -186,7 +187,7 @@ namespace DoomWriter.GUI
             this.DoomWriterTabPage.Location = new System.Drawing.Point(4, 22);
             this.DoomWriterTabPage.Name = "DoomWriterTabPage";
             this.DoomWriterTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.DoomWriterTabPage.Size = new System.Drawing.Size(488, 265);
+            this.DoomWriterTabPage.Size = new System.Drawing.Size(576, 321);
             this.DoomWriterTabPage.TabIndex = 0;
             this.DoomWriterTabPage.Text = "Doom Writer";
             this.DoomWriterTabPage.UseVisualStyleBackColor = true;
@@ -197,7 +198,7 @@ namespace DoomWriter.GUI
             this.ThirdPartyTabPage.Location = new System.Drawing.Point(4, 22);
             this.ThirdPartyTabPage.Name = "ThirdPartyTabPage";
             this.ThirdPartyTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.ThirdPartyTabPage.Size = new System.Drawing.Size(488, 265);
+            this.ThirdPartyTabPage.Size = new System.Drawing.Size(576, 326);
             this.ThirdPartyTabPage.TabIndex = 1;
             this.ThirdPartyTabPage.Text = "3rd party";
             this.ThirdPartyTabPage.UseVisualStyleBackColor = true;
@@ -217,7 +218,7 @@ namespace DoomWriter.GUI
             this.ThirdPartyTableLayoutPanel.RowCount = 2;
             this.ThirdPartyTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ThirdPartyTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.ThirdPartyTableLayoutPanel.Size = new System.Drawing.Size(482, 259);
+            this.ThirdPartyTableLayoutPanel.Size = new System.Drawing.Size(570, 320);
             this.ThirdPartyTableLayoutPanel.TabIndex = 1;
             // 
             // ThirdPartyTextBox
@@ -231,7 +232,7 @@ namespace DoomWriter.GUI
             this.ThirdPartyTextBox.Name = "ThirdPartyTextBox";
             this.ThirdPartyTextBox.ReadOnly = true;
             this.ThirdPartyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.ThirdPartyTextBox.Size = new System.Drawing.Size(341, 234);
+            this.ThirdPartyTextBox.Size = new System.Drawing.Size(429, 295);
             this.ThirdPartyTextBox.TabIndex = 23;
             this.ThirdPartyTextBox.TabStop = false;
             // 
@@ -255,7 +256,7 @@ namespace DoomWriter.GUI
             this.ThirdPartyListBox.Margin = new System.Windows.Forms.Padding(0);
             this.ThirdPartyListBox.Name = "ThirdPartyListBox";
             this.ThirdPartyTableLayoutPanel.SetRowSpan(this.ThirdPartyListBox, 2);
-            this.ThirdPartyListBox.Size = new System.Drawing.Size(138, 259);
+            this.ThirdPartyListBox.Size = new System.Drawing.Size(138, 320);
             this.ThirdPartyListBox.TabIndex = 25;
             this.ThirdPartyListBox.SelectedIndexChanged += new System.EventHandler(this.ThirdPartyListBox_SelectedIndexChanged);
             // 
@@ -272,7 +273,7 @@ namespace DoomWriter.GUI
             this.MainTableLayoutPanel.RowCount = 2;
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.MainTableLayoutPanel.Size = new System.Drawing.Size(496, 326);
+            this.MainTableLayoutPanel.Size = new System.Drawing.Size(584, 382);
             this.MainTableLayoutPanel.TabIndex = 2;
             // 
             // MainAboutBox
@@ -280,7 +281,7 @@ namespace DoomWriter.GUI
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 326);
+            this.ClientSize = new System.Drawing.Size(584, 382);
             this.Controls.Add(this.MainTableLayoutPanel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
