@@ -282,11 +282,15 @@ namespace DoomWriter.GUI
             }
 
         complete:
+            var displayImage = image != null
+                ? ConvertDWImage(image, RenderScaleFactor)
+                : null;
+
             renderStopwatch.Stop();
 
             renderedImage?.Dispose();
             ResultPictureBox.Image?.Dispose();
-            ResultPictureBox.Image = image != null ? ConvertDWImage(image, RenderScaleFactor) : null;
+            ResultPictureBox.Image = displayImage;
             renderedImage = image;
 
             ToolStripRenderTimeLabel.Text = $"Render time: {renderStopwatch.Elapsed}";
