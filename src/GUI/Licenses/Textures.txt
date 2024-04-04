@@ -1,4 +1,4 @@
-﻿The background texture for the main window is a modified version of a texture originating from the Freedoom project, and is provided under the following license:
+﻿The rock and metal textures used in the main application are modified versions of textures originating from the Freedoom project, provided under the following license:
 
 https://freedoom.github.io/
 
