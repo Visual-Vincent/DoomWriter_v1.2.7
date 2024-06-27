@@ -36,6 +36,7 @@ namespace DoomWriter.GUI
         };
 
         private DWFont DefaultRenderFont;
+        private LazyFontProvider DefaultFontProvider;
 
         private Process currentProcess;
         private TextRenderer renderer;
@@ -91,9 +92,9 @@ namespace DoomWriter.GUI
                 return;
 
             DefaultRenderFont = DWFont.Load<DWFont>(DefaultFontPath);
+            DefaultFontProvider = new LazyFontProvider(FontsDirectory);
 
-            var fontProvider = new LazyFontProvider(FontsDirectory);
-            renderer = new TextRenderer(DefaultRenderFont, fontProvider, ColorTranslator.DefaultTranslations);
+            renderer = new TextRenderer(DefaultRenderFont, DefaultFontProvider, ColorTranslator.DefaultTranslations);
             
             try
             {
@@ -217,6 +218,7 @@ namespace DoomWriter.GUI
         {
             currentProcess?.Dispose();
             DefaultRenderFont?.Dispose();
+            DefaultFontProvider?.Dispose();
         }
 
         private void MemoryUsageTimer_Tick(object sender, EventArgs e)
